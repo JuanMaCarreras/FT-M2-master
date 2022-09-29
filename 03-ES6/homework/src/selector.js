@@ -1,4 +1,4 @@
-var traverseDomAndCollectElements = function(matchFunc, startEl) {
+var traverseDomAndCollectElements = function(matchFunc, startEl=document.body) {
   var resultSet = [];
 
   if (typeof startEl === "undefined") {
@@ -9,7 +9,16 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
   // usa matchFunc para identificar elementos que matchien
 
   // TU CÓDIGO AQUÍ
-  
+  if(matchFunc(startEl)){ 
+    resultSet.push(startEl);
+  }
+
+  for(let i = 0; i < startEl.children.length; i++){
+    let response = traverseDomAndCollectElements(matchFunc, startEl.children[i]);
+    resultSet = [...resultSet, ...response];
+  }
+
+  return resultSet;
 };
 
 // Detecta y devuelve el tipo de selector
@@ -18,6 +27,18 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
 
 var selectorTypeMatcher = function(selector) {
   // tu código aquí
+  if(selector[0] === '#'){
+    return 'id';
+  }
+  else if(selector[0] === '.'){
+    return 'class';
+  }
+  else if(selector.split('.').length > 1){
+    return 'tag.class';
+  }
+
+  return 'tag';
+  
   
 };
 
@@ -29,21 +50,41 @@ var selectorTypeMatcher = function(selector) {
 var matchFunctionMaker = function(selector) {
   var selectorType = selectorTypeMatcher(selector);
   var matchFunction;
-  if (selectorType === "id") { 
-   
-  } else if (selectorType === "class") {
+  if (selectorType === "id") { // <div id='ondas'></div>
     
-  } else if (selectorType === "tag.class") {
+      matchFunction = el => `#${el.id}` === selector;
+       
+     } else if (selectorType === "class") {
     
-  } else if (selectorType === "tag") {
+       matchFunction = el => { 
+        let classes = el.classList;
+  
+        for(let i = 0; i < classes.length; i++){
+          if(`.${classes[i]}` === selector) return true;
+            
+        }
+        return false;
+      }
+        
+     } else if (selectorType === "tag.class") {
+      matchFunction = el => {
+        let [t, c] = selector.split('.');
     
-  }
-  return matchFunction;
-};
-
-var $ = function(selector) {
-  var elements;
-  var selectorMatchFunc = matchFunctionMaker(selector);
-  elements = traverseDomAndCollectElements(selectorMatchFunc);
-  return elements;
+         return matchFunctionMaker(t)(el) && matchFunctionMaker(`.${c}`)(el);
+       }
+        
+     } else if (selectorType === "tag") {
+        
+      matchFunction = el => {
+        return el.tagName.toLowerCase() === selector; // body === body
+      }
+  
+    }
+     return matchFunction;
+  };
+   var $ = function(selector) {
+    var elements;
+    var selectorMatchFunc = matchFunctionMaker(selector);
+    elements = traverseDomAndCollectElements(selectorMatchFunc);
+    return elements;
 };
