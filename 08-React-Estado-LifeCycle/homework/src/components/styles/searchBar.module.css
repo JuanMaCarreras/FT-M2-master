@@ -1,0 +1,28 @@
+.container{
+     display: flex;
+     justify-content: flex-end;
+      padding: .8rem; 
+}
+.btn{
+    background-color:#1b2543;
+    border-radius: 2rem;
+    color:white;
+    font-weight: 400;
+    cursor: pointer;
+    padding-left: .9rem;
+    padding-right: .9rem;
+    padding-bottom: .4rem;
+    margin: 0;
+    transition: .5s;
+}
+.btn:hover{
+    background-color: #1b2543;
+    box-shadow: 0 0 1rem #004775, 0 0 4rem #004775, 0 0 8rem #004775;
+ }
+.imput{
+    border-radius: 2rem;
+    width: 18rem;
+    padding-left: 1rem;
+    margin-right: .6rem;
+    border: 2px solid #1b2543;
+}
