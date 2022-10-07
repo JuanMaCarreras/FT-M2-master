@@ -1,16 +1,18 @@
 import React from 'react';
 
-export default function Card({max, min, name, img ,onClose}) {
+function Card(prop) {
   // acá va tu código
   return (<div>
             <button onClick = {onClose}>X</button>
-            <h4>{name}</h4>
+            <h4>{prop.name}</h4>
             <div>
               <p>Min</p>
-              <p>{min}</p>
+              <p>{prop.min}</p>
               <p>Max</p>
-              <p>{max}</p>
+              <p>{prop.max}</p>
             </div>
             <img src= {`http://openweathermap.org/img/wn/${img}@2x.png`}/>
            </div>)
 };
+
+export default Card;
