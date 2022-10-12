@@ -7,6 +7,7 @@ export default function  Form() {
             user:'',
             password:''
         })
+        
         let [errors, setErrors] = React.useState({})
         
         // const [user, setUser] = React.useState('');
@@ -21,7 +22,7 @@ export default function  Form() {
 
     return (
       <div>
-        <h2>Ejercicio de Formulario</h2>
+          <h2>Ejercicio de Formulario</h2>
         <form className={errors && 'danger'}>
           <div> 
              <label>Username:</label>
@@ -32,7 +33,7 @@ export default function  Form() {
                 value={input.username}
                 className={errors.username && 'danger'}
               />{
-                errors.username && <p>{errors.username}</p>
+                errors.username && <p style={{color:'red'}}>{errors.username}</p>
               }
           </div>     
            <br/>
@@ -45,7 +46,7 @@ export default function  Form() {
                 value={input.password}
                 className={errors.password && 'danger'}
               />{
-                errors.password && <p>{errors.password}</p>
+                errors.password && <p style={{color:'red'}}>{errors.password}</p>
               }
                 
           </div>
