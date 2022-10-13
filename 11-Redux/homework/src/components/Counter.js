@@ -18,10 +18,10 @@ class Counter extends Component {
         return (
             <p>
                 Clickeado: {this.props.count} veces
-                <button onClick={() => {state.dispatch({type:'increment'})}}>
+                <button onClick={() => {state.dispatch(increment())}}>
                     + {'increment'}
                 </button>
-                <button onClick={() => {state.dispatch({type:'decrement'})} }>
+                <button onClick={() => {state.dispatch(decrement())} }>
                     -  {'decrement'}
                 </button>
                  {/* Si quieres hacer los extra credit puede descomentar las lineas de abajo */}
